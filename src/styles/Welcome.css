@@ -1,0 +1,62 @@
+.welcome-container {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 40px;
+  text-align: center;
+  background: linear-gradient(to bottom right, #2a2a2a, #1a1a1a);
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  color: #e4e4e4;
+}
+
+.welcome-container h1 {
+  font-size: 36px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.welcome-container p {
+  font-size: 18px;
+  color: #cccccc;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.welcome-container .username {
+  color: #5d5dff;
+  font-weight: 700;
+}
+
+.welcome-container button {
+  background-color: #5d5dff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.welcome-container button:hover {
+  background-color: #4949e7;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(93, 93, 255, 0.3);
+}
+
+.welcome-animation {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
