@@ -60,3 +60,15 @@
     transform: translateY(0);
   }
 }
+
+.user-info {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #aaaaaa;
+    font-size: 14px;
+}
+
+.user-info .username {
+    color: #5d5dff;
+    font-weight: bold;
+}

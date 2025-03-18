@@ -8,7 +8,16 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.1); /* Sombra más sutil */
-    width: 400px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #e4e4e4;
+}
+
+.calendario-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
 }
 
 /* Buscador */
@@ -48,23 +57,49 @@
 /* Calendario */
 .calendar-box {
     width: 100%;
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .react-calendar {
     width: 100%;
-    background: #1e1e1e;
-    color: orange;
+    background: #2a2a2a;
+    color: #e4e4e4;
     border-radius: 10px;
-    border: 1px solid #3cb371; /* Verde sutil */
+    border: none;
+    font-family: inherit;
+    line-height: 1.125em;
     padding: 10px;
+}
+
+.react-calendar__navigation {
+    background: #1a1a1a;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #333333;
+}
+
+.react-calendar__month-view__weekdays {
+    color: #5d5dff;
+    font-weight: bold;
 }
 
 /* Días normales del calendario */
 .react-calendar__tile {
-    background: transparent;
-    color: white;
+    background: none;
+    color: #e4e4e4;
     padding: 10px;
-    border-radius: 5px;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background-color: #333333;
 }
 
 /* Día actual */
@@ -75,30 +110,104 @@
     border-radius: 50%;
 }
 
+.react-calendar__tile--active {
+    background: #4949e7;
+    color: white;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    background: #5d5dff;
+}
+
 /* Días con eventos */
 .evento-dia {
-    background: #ff4444 !important; /* Rojo para resaltar eventos */
+    background: rgba(93, 93, 255, 0.2) !important;
     color: white !important;
     font-weight: bold;
     border-radius: 50%;
+    position: relative;
 }
 
 /* Eventos */
 .eventos-box {
     width: 100%;
-    padding: 12px;
-    background: #1e1e1e;
+    padding: 20px;
+    background: #2a2a2a;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #3cb371; /* Verde sutil */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.evento {
-    background: #2a2a2a;
-    padding: 8px;
-    border-radius: 5px;
-    margin-top: 5px;
-    border-left: 4px solid #3cb371; /* Verde moderado */
+.eventos-box h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: #5d5dff;
+}
+
+.eventos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.evento-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333333;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #5d5dff;
+}
+
+.evento-info h4 {
+    margin: 0 0 8px 0;
+    color: white;
+}
+
+.evento-info p {
+    margin: 0;
+    color: #aaa;
+}
+
+.delete-btn {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: rgba(220, 53, 69, 0.3);
+}
+
+.add-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #5d5dff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #4949e7;
+}
+
+.no-eventos {
+    text-align: center;
+    color: #888;
+    font-style: italic;
 }
 
 /* Horas a laborar */
@@ -107,4 +216,56 @@
     font-size: 18px;
     color: #3cb371; /* Verde moderado */
     font-weight: bold;
+}
+
+/* Estilos de depuración */
+.fecha-debug {
+    background-color: rgba(0,0,0,0.2);
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-family: monospace;
+    color: #aaa;
+    border-radius: 4px;
+}
+
+.error-message {
+    background-color: rgba(255, 99, 71, 0.2);
+    color: #ff6347;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.loading {
+    text-align: center;
+    font-style: italic;
+    color: #aaa;
+}
+
+.refresh-button {
+    margin-top: 10px;
+    background-color: #444;
+    color: #ddd;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.refresh-button:hover {
+    background-color: #555;
+}
+
+.evento-indicador {
+    width: 5px;
+    height: 5px;
+    background-color: #5d5dff;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
 }

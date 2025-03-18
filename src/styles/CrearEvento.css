@@ -1,0 +1,144 @@
+.crear-evento-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(to bottom right, #2a2a2a, #1a1a1a);
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    color: #e4e4e4;
+}
+
+.crear-evento-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #cccccc;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    background-color: #444444;
+    box-shadow: 0 0 0 2px rgba(93, 93, 255, 0.5);
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.cancel-btn, .submit-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn {
+    background-color: #333333;
+    color: #cccccc;
+    border: 1px solid #555555;
+}
+
+.cancel-btn:hover {
+    background-color: #444444;
+}
+
+.submit-btn {
+    background-color: #5d5dff;
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #4949e7;
+}
+
+.error-message {
+    color: #ff6b6b;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: rgba(255, 107, 107, 0.1);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.fecha-value {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #888;
+    font-family: monospace;
+}
+
+.debug-info {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 12px;
+    color: #888;
+    font-family: monospace;
+}
+
+.debug-info p {
+    margin: 3px 0;
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #aaaaaa;
+    font-size: 14px;
+}
+
+.user-info .username {
+    color: #5d5dff;
+    font-weight: bold;
+}
+
+.exito-mensaje {
+    background-color: rgba(60, 179, 113, 0.2);
+    color: #3cb371;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

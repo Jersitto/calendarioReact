@@ -37,6 +37,15 @@ export default function Login() {
         
         if (aprendiz) {
             // Login successful
+            
+            // Guardar datos del usuario en localStorage
+            const userData = {
+                id: aprendiz.id,
+                nombre: aprendiz.nombre,
+                documento: aprendiz.documento
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
             alert('Inicio de sesión exitoso');
             // Navigate with state to pass username
             navigate('/welcome', { state: { username: aprendiz.nombre } });
