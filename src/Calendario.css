@@ -1,0 +1,110 @@
+.calendario-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background: #121212; /* Fondo oscuro */
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.1); /* Sombra más sutil */
+    width: 400px;
+}
+
+/* Buscador */
+.search-bar {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #3cb371; /* Verde sutil */
+    background: #222;
+    color: white;
+}
+
+.search-bar input::placeholder {
+    color: #bbb;
+}
+
+.search-bar button {
+    padding: 8px 12px;
+    border: none;
+    background: #3cb371; /* Verde moderado */
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.search-bar button:hover {
+    background: #2e8b57; /* Verde más oscuro */
+}
+
+/* Calendario */
+.calendar-box {
+    width: 100%;
+}
+
+.react-calendar {
+    width: 100%;
+    background: #1e1e1e;
+    color: orange;
+    border-radius: 10px;
+    border: 1px solid #3cb371; /* Verde sutil */
+    padding: 10px;
+}
+
+/* Días normales del calendario */
+.react-calendar__tile {
+    background: transparent;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Día actual */
+.react-calendar__tile--now {
+    background: #007bff !important; /* Azul para destacar el día actual */
+    color: white !important;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+/* Días con eventos */
+.evento-dia {
+    background: #ff4444 !important; /* Rojo para resaltar eventos */
+    color: white !important;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+/* Eventos */
+.eventos-box {
+    width: 100%;
+    padding: 12px;
+    background: #1e1e1e;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #3cb371; /* Verde sutil */
+}
+
+.evento {
+    background: #2a2a2a;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border-left: 4px solid #3cb371; /* Verde moderado */
+}
+
+/* Horas a laborar */
+.horas-box {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #3cb371; /* Verde moderado */
+    font-weight: bold;
+}
