@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./Calendario.css";
+import EliminarEvento from "./EliminarEvento";
 
 const Calendario = () => {
     const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
@@ -148,25 +149,83 @@ const Calendario = () => {
     // Obtener la fecha formateada para la fecha seleccionada
     const fechaFormateada = formatoFecha(fechaSeleccionada);
 
+    const [modoEdicion, setModoEdicion] = useState(false);
+const [eventoEditando, setEventoEditando] = useState(null);
+
+const iniciarEdicion = (evento) => {
+    setEventoEditando({
+        id: evento.id,
+        nombre: evento.nombre,
+        hora: evento.hora,
+        fecha: fechaFormateada // Usamos la fecha seleccionada actual
+    });
+    setModoEdicion(true);
+};
+
+
+const guardarCambios = async () => {
+    try {
+        if (!eventoEditando) return;
+        
+        // Verificar que los campos requeridos estén completos
+        if (!eventoEditando.nombre || !eventoEditando.hora) {
+            alert("Por favor completa todos los campos");
+            return;
+        }
+        
+        console.log("Guardando cambios para evento:", eventoEditando);
+        
+        // Enviamos el ID como parámetro de consulta, y el resto en el cuerpo
+        const response = await fetch(`http://localhost:3032/evento?id=${eventoEditando.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: eventoEditando.nombre,
+                hora: eventoEditando.hora,
+                fecha: eventoEditando.fecha,
+                aprendiz_id: usuarioData.id // Asumiendo que necesitas mantener el mismo aprendiz
+            })
+        });
+        
+        if (response.ok) {
+            alert("Evento actualizado correctamente");
+            setModoEdicion(false);
+            setEventoEditando(null);
+            obtenerEventos(); // Recargar los eventos
+        } else {
+            const data = await response.text();
+            alert(`Error al actualizar el evento: ${response.status} - ${data}`);
+        }
+    } catch (error) {
+        console.error("Error completo:", error);
+        alert(`Error al actualizar: ${error.message}`);
+    }
+};
+    
+
     // Función para eliminar evento y actualizar el estado
     const eliminarEvento = async (eventoId) => {
         try {
-            console.log(`Eliminando evento con ID: ${eventoId}`);
+            console.log(`Intentando eliminar evento con ID: ${eventoId}`);
             
-            // Hacer la petición DELETE
-            const response = await fetch(`http://localhost:3032/evento/${eventoId}`, {
+            // Usamos el ID como un parámetro de consulta
+            const response = await fetch(`http://localhost:3032/evento?id=${eventoId}`, {
                 method: "DELETE"
             });
-
+    
+            console.log(`Respuesta al eliminar: ${response.status} - ${response.statusText}`);
+            
             if (response.ok) {
                 alert("Evento eliminado correctamente");
-                // Recargar eventos
                 obtenerEventos();
             } else {
-                alert("Error al eliminar el evento");
+                const data = await response.text();
+                alert(`Error al eliminar el evento: ${response.status} - ${data}`);
             }
         } catch (error) {
-            console.error("Error al eliminar evento:", error);
+            console.error("Error completo:", error);
             alert(`Error al eliminar: ${error.message}`);
         }
     };
@@ -210,41 +269,75 @@ const Calendario = () => {
                     </div>
 
                     {/* Eventos del día seleccionado */}
-                    <div className="eventos-box">
-                        <h3>Eventos para {fechaSeleccionada.toLocaleDateString()}</h3>
-                        <div className="fecha-debug">
-                            Fecha seleccionada: {fechaFormateada}
-                            {eventos[fechaFormateada] ? ` (${eventos[fechaFormateada].length} eventos)` : " (sin eventos)"}
-                        </div>
-                        
-                        {eventos[fechaFormateada] && eventos[fechaFormateada].length > 0 ? (
-                            <div className="eventos-lista">
-                                {eventos[fechaFormateada].map((evento) => (
-                                    <div key={evento.id} className="evento-card">
-                                        <div className="evento-info">
-                                            <h4>{evento.nombre}</h4>
-                                            <p>⏰ {evento.hora}</p>
-                                        </div>
-                                        <button 
-                                            onClick={() => eliminarEvento(evento.id)}
-                                            className="delete-btn">
-                                            Eliminar
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p className="no-eventos">No hay eventos para {fechaFormateada}</p>
-                        )}
-                        
-                        <button onClick={agregarEvento} className="add-button">
+                    {eventos[fechaFormateada] && eventos[fechaFormateada].length > 0 ? (
+    <div className="eventos-lista">
+        {eventos[fechaFormateada].map((evento) => (
+            <div key={evento.id} className="evento-card">
+                <div className="evento-info">
+                    <h4>{evento.nombre}</h4>
+                    <p>⏰ {evento.hora}</p>
+                </div>
+                <div className="evento-actions">
+                    <button 
+                        onClick={() => iniciarEdicion(evento)}
+                        className="edit-btn">
+                        Editar
+                    </button>
+                    <button 
+                        onClick={() => eliminarEvento(evento.id)}
+                        className="delete-btn">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        ))}
+    </div>
+) : (
+    <p className="no-eventos">No hay eventos para {fechaFormateada}</p>
+)}
+
+{/* Formulario de edición */}
+{modoEdicion && eventoEditando && (
+    <div className="edicion-form">
+        <h3>Editar Evento</h3>
+        <div className="form-group">
+            <label>Nombre del evento:</label>
+            <input 
+                type="text" 
+                value={eventoEditando.nombre} 
+                onChange={(e) => setEventoEditando({...eventoEditando, nombre: e.target.value})}
+                placeholder="Nombre del evento" 
+            />
+        </div>
+        <div className="form-group">
+            <label>Hora:</label>
+            <input 
+                type="time" 
+                value={eventoEditando.hora} 
+                onChange={(e) => setEventoEditando({...eventoEditando, hora: e.target.value})}
+            />
+        </div>
+        <div className="form-actions">
+            <button onClick={guardarCambios} className="save-btn">
+                Guardar Cambios
+            </button>
+            <button 
+                onClick={() => {
+                    setModoEdicion(false);
+                    setEventoEditando(null);
+                }} 
+                className="cancel-btn">
+                Cancelar
+            </button>
+            
+        </div>
+        
+    </div>
+    
+)}
+         <button onClick={agregarEvento} className="add-button">
                             Agregar Evento para {fechaFormateada}
-                        </button>
-                        
-                        <button onClick={obtenerEventos} className="refresh-button">
-                            Actualizar Eventos
-                        </button>
-                    </div>
+                        </button>           
                 </>
             )}
         </div>
